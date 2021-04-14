@@ -1,10 +1,10 @@
-function ProjectList(name,allprojects =[]){
+function ProjectList(name,list =[]){
   this.name=name
-  this.allprojects=allprojects
+  this.list = list
 }
 
 ProjectList.prototype.addTask=(task)=>{
-  this.allprojects.push(task)
+  this.list.push(task)
 }
 
 let projects = []
@@ -13,8 +13,9 @@ const createProject = ()=>{
   projects.push(newProject)
 }
 
+
 const deleteProject= (index) =>{
   projects.splice(index,1)
 } 
 
-export default {addTask,createProject,deleteProject}
+export {addTask,createProject,deleteProject,ProjectList}
