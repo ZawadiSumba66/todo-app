@@ -1,4 +1,4 @@
-import addProject from './project.js'
-import addToTasks from './task.js'
-addProject()
-addToTasks()
+import * as combine from './all'
+
+combine.addTasks()
+combine.addProjects()
