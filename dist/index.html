@@ -24,11 +24,13 @@
 <body>
     <div class="to-do row">
         <div class="col-3 project">
+            <div class="project-form">
            <div class="project-title">
                <p>Add Project</p>
            </div>
            <input type="text" id="project" class="form-control"><br>
            <button class="btn btn-dark btn-project">Add +</button>
+          </div>
            <div class="added-projects">
             <p>Projects</p>
             <ul class="added">
@@ -36,7 +38,7 @@
             </ul>
         </div>
         </div>
-        <div class="tasks col-9">
+        <div class="tasks-form col-9">
             <div class="container">
                 <button type="button" class="btn btn-dark d-flex justify-content-end" data-toggle="modal" data-target="#myModal">Add Tasks +</button>
                 <div class="modal fade" id="myModal" role="dialog">
@@ -47,6 +49,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
                       <div class="mod al-body">
+                          <form action="">
                         <div class="d-flex">
                             <div class="pr-2">
                                <label for="title">Title</label><br>
@@ -78,6 +81,7 @@
                         <button class="btn btn-dark submit-task" data-dismiss="modal">Add</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       </div>
+                    </form>
                     </div>
                     </div>
                   </div>
