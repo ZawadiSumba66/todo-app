@@ -6,7 +6,7 @@ import storageModule from './storage';
 import './style.css';
 
 if (!localStorage.projects) {
-  project.createProject('Example', [todo.createTodo('New Todo', 'You can create Todos', '12-10-2021', 1)]);
+  project.createProject('Default', [todo.createTodo('New Todo', 'You can create Todos', '12-10-2021', 1)]);
 } else {
   storageModule.loadLocal();
 }

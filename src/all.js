@@ -172,7 +172,6 @@ const todoForm = (tDiv) => {
     const title = form.querySelector('#title');
     const desc = form.querySelector('#description');
     const due = form.querySelector('#due');
-    const priority = form.querySelector('#priority');
     const newtodo = todo.createTodo(title.value, desc.value, due.value);
     const arr = project.getProjectsArray();
     const index = form.id;
@@ -232,7 +231,7 @@ const projectForm = (pDiv, tDiv, todoF) => {
   return form;
 };
 
-const pageLoad = (projects) => {
+const allPage = (projects) => {
   const container = document.querySelector('#container');
   const content = document.querySelector('.content');
   content.classList.add('d-flex','content');
@@ -268,5 +267,5 @@ export {
   addProjects,
   todoForm,
   projectForm,
-  pageLoad,
+  allPage,
 };
