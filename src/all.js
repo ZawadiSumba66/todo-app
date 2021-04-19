@@ -46,7 +46,6 @@ const setActive = () => {
 };
 
 const loadTodoInfo = (list, i, parent) => {
-   
   if (parent.querySelector('.expanded')) {
     const expanded = parent.querySelector('.expanded');
     parent.removeChild(expanded);
@@ -59,7 +58,6 @@ const loadTodoInfo = (list, i, parent) => {
 
     div.appendChild(editBtn);
     parent.appendChild(div);
-    return parent
   }
 };
 
@@ -79,7 +77,7 @@ const addTask = (list, index) => {
     todo.deleteTodo(list, index);
     newDiv.parentNode.removeChild(newDiv);
     storageModule.saveLocal();
-  }); 
+  });
   const editBtn = document.createElement('button');
   editBtn.classList.add('edit');
   editBtn.textContent = 'click here to view more';
@@ -190,18 +188,16 @@ const todoForm = (tDiv) => {
   const due = createInput('due', 'date');
   due.value = '';
   const priorityLabel = createLabel('Priority');
-  var array = ["High","Low","Medium"];
-  const priority = document.createElement("select");
+  const array = ['High', 'Low', 'Medium'];
+  const priority = document.createElement('select');
   priority.setAttribute('id', 'priority');
-//  priority.id = "mySelect";
-//Create and append the options
-for (var i = 0; i < array.length; i++) {
-   var option = document.createElement("option");
-   option.value = array[i];
-   option.text = array[i];
-   priority.appendChild(option);
-}
-priority.value = ''
+  for (let i = 0; i < array.length; i += 1) {
+    const option = document.createElement('option');
+    option.value = array[i];
+    option.text = array[i];
+    priority.appendChild(option);
+  }
+  priority.value = '';
 
   const btn = createInput('Submit', 'submit');
   btn.value = 'Submit';
@@ -211,8 +207,8 @@ priority.value = ''
     const title = form.querySelector('#title');
     const desc = form.querySelector('#description');
     const due = form.querySelector('#due');
-    const priority = form.querySelector('#priority')
-    const newtodo = todo.createTodo(title.value, desc.value, due.value,priority.value);
+    const priority = form.querySelector('#priority');
+    const newtodo = todo.createTodo(title.value, desc.value, due.value, priority.value);
     const arr = project.getProjectsArray();
     const index = form.id;
     arr[index].addTodo(newtodo);
@@ -250,18 +246,16 @@ const todoFields = (t = '', desc = '', dueDate = '', pr = '') => {
   const dueLabel = createLabel('due');
   const due = createInput('due', 'date');
   due.value = dueDate;
-//Create and append select list
-const priority = document.createElement("select");
-priority.setAttribute('id', 'priority');
-var array = ["High","Low","Medium"];
-//Create and append the options
-for (var i = 0; i < array.length; i++) {
-    var option = document.createElement("option");
+  const priority = document.createElement('select');
+  priority.setAttribute('id', 'priority');
+  const array = ['High', 'Low', 'Medium'];
+  for (let i = 0; i < array.length; i += 1) {
+    const option = document.createElement('option');
     option.value = array[i];
     option.text = array[i];
     priority.appendChild(option);
-}
-priority.value=pr
+  }
+  priority.value = pr;
   const priorityLabel = createLabel('priority');
   wrapper.appendChild(formTitle);
   wrapper.appendChild(titleLabel);
@@ -272,7 +266,7 @@ priority.value=pr
   wrapper.appendChild(due);
   wrapper.appendChild(priorityLabel);
   wrapper.appendChild(priority);
- 
+
   return wrapper;
 };
 
@@ -294,7 +288,7 @@ const editForm = (list, i, element) => {
     const desc = form.querySelector('#description');
     const due = form.querySelector('#due');
     const priority = form.querySelector('#priority');
-    list[i].edit(title.value, desc.value, due.value,priority.value);
+    list[i].edit(title.value, desc.value, due.value, priority.value);
     const edited = addTask(list, i);
     element.parentNode.insertBefore(edited, element);
     element.parentNode.removeChild(element);
@@ -322,7 +316,6 @@ const projectForm = (pDiv, tDiv, todoF) => {
   const form = document.createElement('form');
   const wrapper = document.createElement('div');
   wrapper.classList.add('d-flex', 'flex-column');
-  // form.classList.add('hidden');
   const formTitle = document.createElement('h3');
   formTitle.textContent = 'New Project';
   formTitle.classList.add('m-bot-10', 'bold', 'title');
@@ -337,7 +330,6 @@ const projectForm = (pDiv, tDiv, todoF) => {
     addProjects(arr, arr.length - 1, projectDiv, todoDiv);
     loadAllTodos(arr.length - 1, todoDiv);
     form.reset();
-    // form.classList.add('hidden');
     const todoForm = todoF;
     todoForm.classList.add('hidden');
     storageModule.saveLocal();
@@ -392,5 +384,5 @@ export {
   projectForm,
   allPage,
   todoFields,
-  loadTodoInfo
+  loadTodoInfo,
 };

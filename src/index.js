@@ -2,7 +2,6 @@ import project from './project';
 import todo from './task';
 import page from './all';
 import storageModule from './storage';
-// import './reset.css';
 import './style.css';
 
 if (!localStorage.projects) {
