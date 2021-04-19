@@ -1,7 +1,7 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 # Todo-app
 
-A list of items each with a title,description and Du date. A particular set of items can be grouped into a project
+A list of items each with a title,description and due date. A particular set of items can be grouped into a project
 
 ## Built With
 
