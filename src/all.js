@@ -52,7 +52,7 @@ const addTask = (list, index) => {
   wrapper.classList.add('todo-items');
   const todoTitle = document.createElement('p');
   const todoDescription = document.createElement('p');
-  const todoDate = document.createElement('p')
+  const todoDate = document.createElement('p');
   const deleteTodoBtn = document.createElement('button');
   deleteTodoBtn.classList.add('delete');
   deleteTodoBtn.textContent = 'Delete';
@@ -82,23 +82,22 @@ const loadAllTodos = (index, div) => {
   btn.classList.add('add');
   btn.setAttribute('id', index);
   const projectTitle = document.createElement('h3');
-  projectTitle.textContent=projectArr[index].name
+  projectTitle.textContent = projectArr[index].name;
   btn.textContent = 'Add Task';
   btn.addEventListener('click', () => {
     const todo = document.querySelector('.forms .todo-form');
     todo.setAttribute('id', index);
     const title = todo.querySelector('h3');
-    title.textContent = `New Todo`;
+    title.textContent = 'New Todo';
     show(todo);
   });
-  todoDiv.appendChild(projectTitle)
+  todoDiv.appendChild(projectTitle);
   todoDiv.appendChild(btn);
   const { list } = projectArr[index];
   for (let i = 0; i < list.length; i += 1) {
     const newDiv = addTask(list, i);
     todoDiv.appendChild(newDiv);
   }
-  
 };
 
 const addProjects = (projects, active = 0, pDiv, tDiv) => {
@@ -139,7 +138,7 @@ const addProjects = (projects, active = 0, pDiv, tDiv) => {
       newDiv.classList.add('d-flex');
       projects[i].active = true;
     });
-    newDiv.classList.add('d-flex')
+    newDiv.classList.add('d-flex');
     newDiv.appendChild(projectSpan);
     newDiv.appendChild(deleteProjectBtn);
     projectDiv.appendChild(newDiv);
@@ -150,7 +149,7 @@ const todoForm = (tDiv) => {
   const todoDiv = tDiv;
   const form = document.createElement('form');
   form.classList.add('hidden', 'todo-form');
-  const formStructure =  document.createElement('div');
+  const formStructure = document.createElement('div');
   formStructure.classList.add('d-flex', 'flex-column');
   const formTitle = document.createElement('h3');
   formTitle.classList.add('m-bot-10', 'bold', 'title');
@@ -232,14 +231,13 @@ const projectForm = (pDiv, tDiv, todoF) => {
 };
 
 const allPage = (projects) => {
-  const container = document.querySelector('#container');
   const content = document.querySelector('.content');
-  content.classList.add('d-flex','content');
+  content.classList.add('d-flex', 'content');
   const projectDiv = document.createElement('div');
   const todoDiv = document.createElement('div');
   const formDiv = document.createElement('div');
   formDiv.classList.add('forms', 'absolute');
-  projectDiv.setAttribute('id', 'projects','d-flex');
+  projectDiv.setAttribute('id', 'projects', 'd-flex');
   projectDiv.classList.add('projects');
   todoDiv.setAttribute('id', 'todo');
   todoDiv.classList.add('todo');
@@ -254,7 +252,7 @@ const allPage = (projects) => {
   addProjects(projects, 0, projectDiv, todoDiv);
 };
 
-export default pageLoad;
+export default allPage;
 export {
   show,
   showButton,

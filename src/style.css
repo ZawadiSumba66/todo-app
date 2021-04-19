@@ -7,24 +7,8 @@ body {
   padding: 0;
 }
 
-.add {
-  color: white;
-  background-color: rgb(10, 175, 10);
-  border: none;
-}
-
-.add:focus {
-  outline: none;
-}
-
 .flex-column {
   flex-direction: column;
-}
-
-.selected {
-  border: none;
-  background-color: white;
-  color: black;
 }
 
 .projects {
@@ -57,10 +41,6 @@ body {
   color: white;
   font-weight: bold;
   background-color: rgb(253, 78, 78);
-}
-
-.delete:focus {
-  outline: none;
 }
 
 .d-flex {
