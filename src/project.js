@@ -1,34 +1,45 @@
-function ProjectList(name,list =[],current=false){
-  this.name = name
-  this.list = list
-  this.current = current
-}
-
-ProjectList.prototype.addTodo = function (task) {
-  this.list.push(task);
-};
-
-let projects = []
-const createProject = (name,list=[])=>{
-  const newProject = new ProjectList(name, list)
-  projects.push(newProject)
-  return newProject
-}
-
-const currentProject = () => {
-  for (let i = 0; i < projects.length; i += 1) {
-    if (projects[i].current) {
-      return i;
-    }
+class Project {
+  constructor(name, list = [], active = false) {
+    this.name = name;
+    this.list = list;
+    this.active = active;
   }
-  return 0;
+}
+
+Project.prototype.addTodo = function (todo) {
+  this.list.push(todo);
 };
 
+const projectModule = (() => {
+  let projectArray = [];
 
-const projectsArray=()=>projects
+  const createProject = (name, list = []) => {
+    const newProject = new Project(name, list);
+    projectArray.push(newProject);
+    return newProject;
+  };
 
-const deleteProject= (index) =>{
-  projects.splice(index,1)
-} 
+  const setProjectsArray = (arr) => {
+    projectArray = arr;
+  };
 
-export {createProject,deleteProject,ProjectList,projectsArray,currentProject}
+  const getProjectsArray = () => projectArray;
+
+  const deleteProject = (index) => projectArray.splice(index, 1);
+
+  const getActive = () => {
+    for (let i = 0; i < projectArray.length; i += 1) {
+      if (projectArray[i].active) {
+        return i;
+      }
+    }
+    return 0;
+  };
+
+  return {
+    createProject, getProjectsArray, deleteProject, getActive, setProjectsArray,
+  };
+})();
+
+export default projectModule;
+export { projectModule, Project };

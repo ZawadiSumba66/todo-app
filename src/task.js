@@ -1,14 +1,29 @@
-const taskList = (title,description,date,priority)=>{
-  return { title, description, date, priority}
+class Todo {
+  constructor(title, description, date, priority) {
+    this.title = title;
+    this.description = description;
+    this.date = date;
+    this.priority = priority;
+  }
 }
 
-const createTask = (title,description,date,priority)=>{
-  const newTask = taskList(title, description, date, priority)
-  return newTask
-}
+Todo.prototype.edit = function (title, description, date, priority) {
+  this.title = title;
+  this.description = description;
+  this.date = date;
+  this.priority = priority;
+};
 
-const deleteTask= (list,index) =>{
-  list.splice(index,1)
-} 
+const todoModule = (() => {
+  const createTodo = (title, description, date, priority) => {
+    const newTodo = new Todo(title, description, date, priority);
+    return newTodo;
+  };
 
-export {createTask,deleteTask}
+  const deleteTodo = (list, index) => list.splice(index, 1);
+
+  return { createTodo, deleteTodo };
+})();
+
+export default todoModule;
+export { todoModule, Todo };
