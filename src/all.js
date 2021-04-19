@@ -45,6 +45,24 @@ const setActive = () => {
   }
 };
 
+const loadTodoInfo = (list, i, parent) => {
+   
+  if (parent.querySelector('.expanded')) {
+    const expanded = parent.querySelector('.expanded');
+    parent.removeChild(expanded);
+  } else {
+    const div = document.createElement('div');
+    div.classList.add('expanded');
+    const editBtn = document.createElement('button');
+    editBtn.addEventListener('click', edit.bind(this, list, i, parent)); // eslint-disable-line
+    editBtn.textContent = 'Edit';
+
+    div.appendChild(editBtn);
+    parent.appendChild(div);
+    return parent
+  }
+};
+
 const addTask = (list, index) => {
   const newDiv = document.createElement('div');
   newDiv.classList.add('m-bot-10');
@@ -53,6 +71,7 @@ const addTask = (list, index) => {
   const todoTitle = document.createElement('p');
   const todoDescription = document.createElement('p');
   const todoDate = document.createElement('p');
+  const todoPriority = document.createElement('p');
   const deleteTodoBtn = document.createElement('button');
   deleteTodoBtn.classList.add('delete');
   deleteTodoBtn.textContent = 'Delete';
@@ -60,13 +79,20 @@ const addTask = (list, index) => {
     todo.deleteTodo(list, index);
     newDiv.parentNode.removeChild(newDiv);
     storageModule.saveLocal();
-  });
+  }); 
+  const editBtn = document.createElement('button');
+  editBtn.classList.add('edit');
+  editBtn.textContent = 'click here to view more';
   todoTitle.textContent = list[index].title;
+  editBtn.addEventListener('click', loadTodoInfo.bind(this, list, index, newDiv));
   todoDescription.textContent = list[index].description;
   todoDate.textContent = list[index].date;
+  todoPriority.textContent = list[index].priority;
   wrapper.appendChild(todoTitle);
   wrapper.appendChild(todoDescription);
   wrapper.appendChild(todoDate);
+  wrapper.appendChild(todoPriority);
+  wrapper.appendChild(editBtn);
   wrapper.appendChild(deleteTodoBtn);
   newDiv.appendChild(wrapper);
   return newDiv;
@@ -163,6 +189,20 @@ const todoForm = (tDiv) => {
   const dueLabel = createLabel('due');
   const due = createInput('due', 'date');
   due.value = '';
+  const priorityLabel = createLabel('Priority');
+  var array = ["High","Low","Medium"];
+  const priority = document.createElement("select");
+  priority.setAttribute('id', 'priority');
+//  priority.id = "mySelect";
+//Create and append the options
+for (var i = 0; i < array.length; i++) {
+   var option = document.createElement("option");
+   option.value = array[i];
+   option.text = array[i];
+   priority.appendChild(option);
+}
+priority.value = ''
+
   const btn = createInput('Submit', 'submit');
   btn.value = 'Submit';
 
@@ -171,7 +211,8 @@ const todoForm = (tDiv) => {
     const title = form.querySelector('#title');
     const desc = form.querySelector('#description');
     const due = form.querySelector('#due');
-    const newtodo = todo.createTodo(title.value, desc.value, due.value);
+    const priority = form.querySelector('#priority')
+    const newtodo = todo.createTodo(title.value, desc.value, due.value,priority.value);
     const arr = project.getProjectsArray();
     const index = form.id;
     arr[index].addTodo(newtodo);
@@ -186,10 +227,92 @@ const todoForm = (tDiv) => {
   formStructure.appendChild(description);
   formStructure.appendChild(dueLabel);
   formStructure.appendChild(due);
+  formStructure.appendChild(priorityLabel);
+  formStructure.appendChild(priority);
   formStructure.appendChild(btn);
   form.appendChild(formStructure);
 
   return form;
+};
+
+const todoFields = (t = '', desc = '', dueDate = '', pr = '') => {
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('d-flex', 'flex-column');
+  const formTitle = document.createElement('h3');
+  formTitle.classList.add('m-bot-10', 'bold', 'title');
+  const titleLabel = createLabel('title');
+  const title = createInput('title', 'text');
+  title.value = t;
+  const descriptionLabel = createLabel('description');
+  const description = document.createElement('textarea');
+  description.setAttribute('id', 'description');
+  description.value = desc;
+  const dueLabel = createLabel('due');
+  const due = createInput('due', 'date');
+  due.value = dueDate;
+//Create and append select list
+const priority = document.createElement("select");
+priority.setAttribute('id', 'priority');
+var array = ["High","Low","Medium"];
+//Create and append the options
+for (var i = 0; i < array.length; i++) {
+    var option = document.createElement("option");
+    option.value = array[i];
+    option.text = array[i];
+    priority.appendChild(option);
+}
+priority.value=pr
+  const priorityLabel = createLabel('priority');
+  wrapper.appendChild(formTitle);
+  wrapper.appendChild(titleLabel);
+  wrapper.appendChild(title);
+  wrapper.appendChild(descriptionLabel);
+  wrapper.appendChild(description);
+  wrapper.appendChild(dueLabel);
+  wrapper.appendChild(due);
+  wrapper.appendChild(priorityLabel);
+  wrapper.appendChild(priority);
+ 
+  return wrapper;
+};
+
+const editForm = (list, i, element) => {
+  const form = document.createElement('form');
+  form.classList.add('todo-form');
+  const formStructure = todoFields(
+    list[i].title,
+    list[i].description,
+    list[i].date,
+    list[i].priority,
+  );
+  const btn = createInput('Submit', 'submit');
+  btn.value = 'Edit';
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const title = form.querySelector('#title');
+    const desc = form.querySelector('#description');
+    const due = form.querySelector('#due');
+    const priority = form.querySelector('#priority');
+    list[i].edit(title.value, desc.value, due.value,priority.value);
+    const edited = addTask(list, i);
+    element.parentNode.insertBefore(edited, element);
+    element.parentNode.removeChild(element);
+    loadTodoInfo(list, i, edited);
+    storageModule.saveLocal();
+  });
+
+  formStructure.appendChild(btn);
+  form.appendChild(formStructure);
+
+  return form;
+};
+
+const edit = (list, i, parent) => {
+  const expanded = parent.querySelector('.expanded');
+  expanded.innerHTML = '';
+  const form = editForm(list, i, parent);
+  expanded.appendChild(form);
 };
 
 
@@ -264,6 +387,10 @@ export {
   loadAllTodos,
   addProjects,
   todoForm,
+  edit,
+  editForm,
   projectForm,
   allPage,
+  todoFields,
+  loadTodoInfo
 };

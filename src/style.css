@@ -7,6 +7,10 @@ body {
   padding: 0;
 }
 
+p {
+  display: flex;
+}
+
 .flex-column {
   flex-direction: column;
 }
@@ -17,7 +21,7 @@ body {
   background-color: #542e71;
   top: 0;
   right: 0;
-  height: 100vh;
+  height: 150vh;
 }
 
 .delete-project {
