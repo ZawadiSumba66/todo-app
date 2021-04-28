@@ -6,13 +6,6 @@ const show = (object) => {
   object.classList.toggle('hidden');
 };
 
-// const showButton = (object, content) => {
-//   const btn = document.createElement('button');
-//   btn.textContent = content;
-//   btn.addEventListener('click', show.bind(this, object));
-//   return btn;
-// };
-
 const createLabel = (name) => {
   const label = document.createElement('label');
   label.setAttribute('for', `${name}`);
@@ -30,12 +23,6 @@ const createInput = (name, type) => {
   return input;
 };
 
-// const setWhiteBg = () => {
-//   const div = document.querySelectorAll('#projects div');
-//   for (let i = 0; i < div.length; i += 1) {
-//     div[i].classList.remove('selected');
-//   }
-// };
 
 const setActive = () => {
   const projects = project.getProjectsArray();
@@ -45,10 +32,6 @@ const setActive = () => {
 };
 
 const editButton = (list, i, parent) => {
-  // if (parent.querySelector('.expanded')) {
-  //   const expanded = parent.querySelector('.expanded');
-  //   parent.removeChild(expanded);
-  // } else {
     const div = document.createElement('div');
     div.classList.add('expanded');
     const editBtn = document.createElement('button');
@@ -57,7 +40,7 @@ const editButton = (list, i, parent) => {
 
     div.appendChild(editBtn);
     parent.appendChild(div);
-  // }
+ 
 };
 
 const addTask = (list, index) => {
@@ -154,12 +137,8 @@ const addProjects = (projects, active = 0, pDiv, tDiv) => {
     projectSpan.classList.add('pointer');
     projectSpan.textContent = projects[i].name;
     projectSpan.addEventListener('click', () => {
-      // const todo = document.querySelector('.todo-form');
-      // todo.classList.add('hidden');
       loadAllTodos(i, todoDiv);
       setActive();
-      // setWhiteBg();
-      // newDiv.classList.add('d-flex');
       projects[i].active = true;
     });
     newDiv.classList.add('d-flex');
@@ -292,7 +271,6 @@ const editForm = (list, i, element) => {
     const edited = addTask(list, i);
     element.parentNode.insertBefore(edited, element);
     element.parentNode.removeChild(element);
-  //  editButton(list, i, edited);
     storageModule.saveLocal();
   });
 
@@ -370,7 +348,6 @@ const allPage = (projects) => {
 export default allPage;
 export {
   show,
-  // showButton,
   createLabel,
   createInput,
   setActive,
