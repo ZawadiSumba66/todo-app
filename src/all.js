@@ -1,4 +1,4 @@
-import project from './project';
+ import project from './project';
 import todo from './task';
 import storageModule from './storage';
 
@@ -6,12 +6,12 @@ const show = (object) => {
   object.classList.toggle('hidden');
 };
 
-const showButton = (object, content) => {
-  const btn = document.createElement('button');
-  btn.textContent = content;
-  btn.addEventListener('click', show.bind(this, object));
-  return btn;
-};
+// const showButton = (object, content) => {
+//   const btn = document.createElement('button');
+//   btn.textContent = content;
+//   btn.addEventListener('click', show.bind(this, object));
+//   return btn;
+// };
 
 const createLabel = (name) => {
   const label = document.createElement('label');
@@ -26,17 +26,16 @@ const createLabel = (name) => {
 const createInput = (name, type) => {
   const input = document.createElement('input');
   input.setAttribute('id', `${name}`);
-  input.classList.add('m-bot-10');
   input.type = type;
   return input;
 };
 
-const setWhiteBg = () => {
-  const div = document.querySelectorAll('#projects div');
-  for (let i = 0; i < div.length; i += 1) {
-    div[i].classList.remove('selected');
-  }
-};
+// const setWhiteBg = () => {
+//   const div = document.querySelectorAll('#projects div');
+//   for (let i = 0; i < div.length; i += 1) {
+//     div[i].classList.remove('selected');
+//   }
+// };
 
 const setActive = () => {
   const projects = project.getProjectsArray();
@@ -45,11 +44,11 @@ const setActive = () => {
   }
 };
 
-const loadTodoInfo = (list, i, parent) => {
-  if (parent.querySelector('.expanded')) {
-    const expanded = parent.querySelector('.expanded');
-    parent.removeChild(expanded);
-  } else {
+const editButton = (list, i, parent) => {
+  // if (parent.querySelector('.expanded')) {
+  //   const expanded = parent.querySelector('.expanded');
+  //   parent.removeChild(expanded);
+  // } else {
     const div = document.createElement('div');
     div.classList.add('expanded');
     const editBtn = document.createElement('button');
@@ -58,12 +57,11 @@ const loadTodoInfo = (list, i, parent) => {
 
     div.appendChild(editBtn);
     parent.appendChild(div);
-  }
+  // }
 };
 
 const addTask = (list, index) => {
   const newDiv = document.createElement('div');
-  newDiv.classList.add('m-bot-10');
   const wrapper = document.createElement('div');
   wrapper.classList.add('todo-items');
   const todoTitle = document.createElement('p');
@@ -82,7 +80,7 @@ const addTask = (list, index) => {
   editBtn.classList.add('edit');
   editBtn.textContent = 'click here to view more';
   todoTitle.textContent = list[index].title;
-  editBtn.addEventListener('click', loadTodoInfo.bind(this, list, index, newDiv));
+  editBtn.addEventListener('click',editButton.bind(this, list, index, newDiv));
   todoDescription.textContent = list[index].description;
   todoDate.textContent = list[index].date;
   todoPriority.textContent = list[index].priority;
@@ -142,10 +140,12 @@ const addProjects = (projects, active = 0, pDiv, tDiv) => {
     deleteProjectBtn.textContent = 'X';
     deleteProjectBtn.addEventListener('click', () => {
       if (projects[i].active) {
+        // if (projects[i]) {
         project.deleteProject(i);
         projectDiv.removeChild(newDiv);
         loadAllTodos(0, todoDiv);
-      } else {
+        }
+       else {
         project.deleteProject(i);
         addProjects(projects, project.getActive(), projectDiv, todoDiv);
       }
@@ -154,12 +154,12 @@ const addProjects = (projects, active = 0, pDiv, tDiv) => {
     projectSpan.classList.add('pointer');
     projectSpan.textContent = projects[i].name;
     projectSpan.addEventListener('click', () => {
-      const todo = document.querySelector('.todo-form');
-      todo.classList.add('hidden');
+      // const todo = document.querySelector('.todo-form');
+      // todo.classList.add('hidden');
       loadAllTodos(i, todoDiv);
       setActive();
-      setWhiteBg();
-      newDiv.classList.add('d-flex');
+      // setWhiteBg();
+      // newDiv.classList.add('d-flex');
       projects[i].active = true;
     });
     newDiv.classList.add('d-flex');
@@ -292,7 +292,7 @@ const editForm = (list, i, element) => {
     const edited = addTask(list, i);
     element.parentNode.insertBefore(edited, element);
     element.parentNode.removeChild(element);
-    loadTodoInfo(list, i, edited);
+  //  editButton(list, i, edited);
     storageModule.saveLocal();
   });
 
@@ -370,10 +370,9 @@ const allPage = (projects) => {
 export default allPage;
 export {
   show,
-  showButton,
+  // showButton,
   createLabel,
   createInput,
-  setWhiteBg,
   setActive,
   addTask,
   loadAllTodos,
@@ -384,5 +383,5 @@ export {
   projectForm,
   allPage,
   todoFields,
-  loadTodoInfo,
+ editButton,
 };
