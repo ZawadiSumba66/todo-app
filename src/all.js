@@ -1,4 +1,4 @@
- import project from './project';
+import project from './project';
 import todo from './task';
 import storageModule from './storage';
 
@@ -32,15 +32,14 @@ const setActive = () => {
 };
 
 const editButton = (list, i, parent) => {
-    const div = document.createElement('div');
-    div.classList.add('expanded');
-    const editBtn = document.createElement('button');
+  const div = document.createElement('div');
+  div.classList.add('expanded');
+  const editBtn = document.createElement('button');
     editBtn.addEventListener('click', edit.bind(this, list, i, parent)); // eslint-disable-line
-    editBtn.textContent = 'Edit';
-    editBtn.classList.add('edit')
-    div.appendChild(editBtn);
-    parent.appendChild(div);
- 
+  editBtn.textContent = 'Edit';
+  editBtn.classList.add('edit');
+  div.appendChild(editBtn);
+  parent.appendChild(div);
 };
 
 const addTask = (list, index) => {
@@ -63,7 +62,7 @@ const addTask = (list, index) => {
   editBtn.classList.add('edit');
   editBtn.textContent = 'click here to view more';
   todoTitle.textContent = list[index].title;
-  editBtn.addEventListener('click',editButton.bind(this, list, index, newDiv));
+  editBtn.addEventListener('click', editButton.bind(this, list, index, newDiv));
   todoDescription.textContent = list[index].description;
   todoDate.textContent = list[index].date;
   todoPriority.textContent = list[index].priority;
@@ -127,8 +126,7 @@ const addProjects = (projects, active = 0, pDiv, tDiv) => {
         project.deleteProject(i);
         projectDiv.removeChild(newDiv);
         loadAllTodos(0, todoDiv);
-        }
-       else {
+      } else {
         project.deleteProject(i);
         addProjects(projects, project.getActive(), projectDiv, todoDiv);
       }
@@ -180,7 +178,7 @@ const todoForm = (tDiv) => {
 
   const btn = createInput('Submit', 'submit');
   btn.value = 'Submit';
-  btn.classList.add('submit')
+  btn.classList.add('submit');
 
   btn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -300,7 +298,7 @@ const projectForm = (pDiv, tDiv, todoF) => {
   formTitle.classList.add('m-bot-10', 'bold', 'title');
   const nameLabel = createLabel('name');
   const name = createInput('name', 'text');
-  name.classList.add('name')
+  name.classList.add('name');
 
   const submit = document.createElement('button');
   submit.addEventListener('click', (e) => {
@@ -315,7 +313,7 @@ const projectForm = (pDiv, tDiv, todoF) => {
     storageModule.saveLocal();
   });
   submit.textContent = 'Submit';
- submit.classList.add('submit')
+  submit.classList.add('submit');
   wrapper.appendChild(formTitle);
   wrapper.appendChild(nameLabel);
   wrapper.appendChild(name);
@@ -362,5 +360,5 @@ export {
   projectForm,
   allPage,
   todoFields,
- editButton,
+  editButton,
 };
