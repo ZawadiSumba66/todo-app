@@ -1,4 +1,3 @@
-import todo, { Todo } from '../src/task.js'
 import projects from '../src/project';
 let project;
 beforeAll(() => {

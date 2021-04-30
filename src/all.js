@@ -37,7 +37,7 @@ const editButton = (list, i, parent) => {
     const editBtn = document.createElement('button');
     editBtn.addEventListener('click', edit.bind(this, list, i, parent)); // eslint-disable-line
     editBtn.textContent = 'Edit';
-
+    editBtn.classList.add('edit')
     div.appendChild(editBtn);
     parent.appendChild(div);
  
@@ -180,6 +180,7 @@ const todoForm = (tDiv) => {
 
   const btn = createInput('Submit', 'submit');
   btn.value = 'Submit';
+  btn.classList.add('submit')
 
   btn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -299,6 +300,7 @@ const projectForm = (pDiv, tDiv, todoF) => {
   formTitle.classList.add('m-bot-10', 'bold', 'title');
   const nameLabel = createLabel('name');
   const name = createInput('name', 'text');
+  name.classList.add('name')
 
   const submit = document.createElement('button');
   submit.addEventListener('click', (e) => {
@@ -313,7 +315,7 @@ const projectForm = (pDiv, tDiv, todoF) => {
     storageModule.saveLocal();
   });
   submit.textContent = 'Submit';
-
+ submit.classList.add('submit')
   wrapper.appendChild(formTitle);
   wrapper.appendChild(nameLabel);
   wrapper.appendChild(name);
