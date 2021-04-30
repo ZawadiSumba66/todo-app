@@ -135,6 +135,8 @@ const addProjects = (projects, active = 0, pDiv, tDiv) => {
     projectSpan.classList.add('pointer');
     projectSpan.textContent = projects[i].name;
     projectSpan.addEventListener('click', () => {
+      const todo = document.querySelector('.todo-form');
+      todo.classList.add('hidden');
       loadAllTodos(i, todoDiv);
       setActive();
       projects[i].active = true;
