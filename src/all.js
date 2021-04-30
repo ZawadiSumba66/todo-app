@@ -6,13 +6,6 @@ const show = (object) => {
   object.classList.toggle('hidden');
 };
 
-const showButton = (object, content) => {
-  const btn = document.createElement('button');
-  btn.textContent = content;
-  btn.addEventListener('click', show.bind(this, object));
-  return btn;
-};
-
 const createLabel = (name) => {
   const label = document.createElement('label');
   label.setAttribute('for', `${name}`);
@@ -26,17 +19,10 @@ const createLabel = (name) => {
 const createInput = (name, type) => {
   const input = document.createElement('input');
   input.setAttribute('id', `${name}`);
-  input.classList.add('m-bot-10');
   input.type = type;
   return input;
 };
 
-const setWhiteBg = () => {
-  const div = document.querySelectorAll('#projects div');
-  for (let i = 0; i < div.length; i += 1) {
-    div[i].classList.remove('selected');
-  }
-};
 
 const setActive = () => {
   const projects = project.getProjectsArray();
@@ -45,25 +31,19 @@ const setActive = () => {
   }
 };
 
-const loadTodoInfo = (list, i, parent) => {
-  if (parent.querySelector('.expanded')) {
-    const expanded = parent.querySelector('.expanded');
-    parent.removeChild(expanded);
-  } else {
-    const div = document.createElement('div');
-    div.classList.add('expanded');
-    const editBtn = document.createElement('button');
+const editButton = (list, i, parent) => {
+  const div = document.createElement('div');
+  div.classList.add('expanded');
+  const editBtn = document.createElement('button');
     editBtn.addEventListener('click', edit.bind(this, list, i, parent)); // eslint-disable-line
-    editBtn.textContent = 'Edit';
-
-    div.appendChild(editBtn);
-    parent.appendChild(div);
-  }
+  editBtn.textContent = 'Edit';
+  editBtn.classList.add('edit');
+  div.appendChild(editBtn);
+  parent.appendChild(div);
 };
 
 const addTask = (list, index) => {
   const newDiv = document.createElement('div');
-  newDiv.classList.add('m-bot-10');
   const wrapper = document.createElement('div');
   wrapper.classList.add('todo-items');
   const todoTitle = document.createElement('p');
@@ -82,7 +62,7 @@ const addTask = (list, index) => {
   editBtn.classList.add('edit');
   editBtn.textContent = 'click here to view more';
   todoTitle.textContent = list[index].title;
-  editBtn.addEventListener('click', loadTodoInfo.bind(this, list, index, newDiv));
+  editBtn.addEventListener('click', editButton.bind(this, list, index, newDiv));
   todoDescription.textContent = list[index].description;
   todoDate.textContent = list[index].date;
   todoPriority.textContent = list[index].priority;
@@ -142,6 +122,7 @@ const addProjects = (projects, active = 0, pDiv, tDiv) => {
     deleteProjectBtn.textContent = 'X';
     deleteProjectBtn.addEventListener('click', () => {
       if (projects[i].active) {
+        // if (projects[i]) {
         project.deleteProject(i);
         projectDiv.removeChild(newDiv);
         loadAllTodos(0, todoDiv);
@@ -158,8 +139,6 @@ const addProjects = (projects, active = 0, pDiv, tDiv) => {
       todo.classList.add('hidden');
       loadAllTodos(i, todoDiv);
       setActive();
-      setWhiteBg();
-      newDiv.classList.add('d-flex');
       projects[i].active = true;
     });
     newDiv.classList.add('d-flex');
@@ -201,6 +180,7 @@ const todoForm = (tDiv) => {
 
   const btn = createInput('Submit', 'submit');
   btn.value = 'Submit';
+  btn.classList.add('submit');
 
   btn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -292,7 +272,6 @@ const editForm = (list, i, element) => {
     const edited = addTask(list, i);
     element.parentNode.insertBefore(edited, element);
     element.parentNode.removeChild(element);
-    loadTodoInfo(list, i, edited);
     storageModule.saveLocal();
   });
 
@@ -321,6 +300,7 @@ const projectForm = (pDiv, tDiv, todoF) => {
   formTitle.classList.add('m-bot-10', 'bold', 'title');
   const nameLabel = createLabel('name');
   const name = createInput('name', 'text');
+  name.classList.add('name');
 
   const submit = document.createElement('button');
   submit.addEventListener('click', (e) => {
@@ -335,7 +315,7 @@ const projectForm = (pDiv, tDiv, todoF) => {
     storageModule.saveLocal();
   });
   submit.textContent = 'Submit';
-
+  submit.classList.add('submit');
   wrapper.appendChild(formTitle);
   wrapper.appendChild(nameLabel);
   wrapper.appendChild(name);
@@ -370,10 +350,8 @@ const allPage = (projects) => {
 export default allPage;
 export {
   show,
-  showButton,
   createLabel,
   createInput,
-  setWhiteBg,
   setActive,
   addTask,
   loadAllTodos,
@@ -384,5 +362,5 @@ export {
   projectForm,
   allPage,
   todoFields,
-  loadTodoInfo,
+  editButton,
 };

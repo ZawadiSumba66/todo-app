@@ -18,6 +18,10 @@ A list of items each with a title,description and due date. A particular set of 
   - ``npm run build`` to run webpack that will intergrate all changes made
 - Open the app in your local host server while on the `todo-app` directory
 
+## Testing
+In this project I used jest for testing.
+Run `npm run watch-jest` for testing
+
 ## Authors
 
 👤 **Rose Sumba**
